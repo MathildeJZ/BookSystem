@@ -1,7 +1,7 @@
+/* --- Baggrund --- */
 .hero-bg {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   background-image: url('/bookshelf.jpg');
@@ -11,35 +11,38 @@
   z-index: -1;
 }
 
+/* --- Indhold --- */
 .content {
   position: relative;
   z-index: 1;
   padding: 40px;
   color: white;
 }
+
+/* --- Bokse layout --- */
 .box-container {
   display: flex;
-  gap: 20px; /* afstand mellem kasserne */
+  gap: 20px;
   margin-top: 20px;
 }
 
 .box {
-  flex: 1; /* gør dem lige brede */
-  background: rgba(255, 255, 255, 0.7); /* let gennemsigtig */
+  flex: 1;
+  background: rgba(255, 255, 255, 0.7);
   padding: 20px;
   border-radius: 10px;
-  backdrop-filter: blur(5px); /* flot glas-effekt */
+  backdrop-filter: blur(5px);
 }
 
+/* --- Handlinger grid --- */
 .action-box {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* to kolonner */
-  gap: 15px; /* afstand mellem knapper */
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
   margin-top: 20px;
 }
 
-
-
+/* --- Knapper --- */
 .action-btn {
   padding: 15px;
   background: rgba(255, 255, 255, 0.7);
@@ -54,6 +57,8 @@
 .action-btn:hover {
   background: rgba(255, 255, 255, 0.9);
 }
+
+/* --- Custom radio-knapper --- */
 .check-item {
   display: flex;
   align-items: center;
@@ -63,8 +68,8 @@
   user-select: none;
 }
 
-/* Skjul den normale checkbox */
-.check-item input {
+/* Skjul standard radio */
+.check-item input[type="radio"] {
   display: none;
 }
 
@@ -75,14 +80,15 @@
   border: 2px solid black;
   border-radius: 50%;
   position: relative;
+  margin-right: 15px;
 }
 
-/* Indre farvet cirkel (vises kun når checked) */
-.check-item input:checked + .circle::after {
+/* Prikken når valgt */
+.check-item input[type="radio"]:checked + .circle::after {
   content: "";
   width: 12px;
   height: 12px;
-  background-color: black; /* farven på den lille cirkel */
+  background-color: black;
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -90,10 +96,46 @@
   transform: translate(-50%, -50%);
 }
 
+/* --- Info række --- */
 .info-row {
   display: flex;
   flex-direction: row;
   gap: 20px;
   align-items: center;
+  margin-bottom: 15px; 
+}
+
+.search-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.search-results {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.result-item {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.search-input {
+  width: 90%;
 }
 

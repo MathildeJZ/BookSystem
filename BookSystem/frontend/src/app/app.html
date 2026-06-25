@@ -1,99 +1,145 @@
-<div class="hero-bg"></div>
-<div class="content">
-  <h1>Den Sorte Boghandel</h1>
-</div>
+  <div class="hero-bg"></div>
 
-<div class="box-container">
+  <div class="content">
+    <h1>Den Sorte Boghandel</h1>
+  </div>
 
-  <!-- Handlinger-boksen -->
-  <div class="box">
-    Handlinger
+  <div class="box-container">
 
-    <div class="action-box">
-      <button class="action-button">Tilføj bog</button>
-      <button class="action-button">Slet bog</button>
-      <button class="action-button">Opdater bog</button>
-      <button class="action-button">Information om bog</button>
+    <!-- Handlinger-boksen -->
+    <div class="box">
+      Handlinger
+
+      <div class="action-box">
+        <button class="action-button">Tilføj bog</button>
+        <button class="action-button">Slet bog</button>
+        <button class="action-button">Opdater bog</button>
+        <button class="action-button">Information om bog</button>
+      </div>
     </div>
+
+    <!-- Søge-kasse -->
+    <div class="box">
+      Søge i database
+
+      <div class="search-container">
+
+        <!-- Søgefelt -->
+        <input type="text"
+              placeholder="Søg i database..."
+              [(ngModel)]="searchValue"
+              (input)="onSearch()"
+              class="search-input">
+
+        <!-- Resultat-kasse -->
+        <div class="search-results" *ngIf="searchResults.length > 0">
+          <div class="result-item" *ngFor="let result of searchResults">
+            {{ result }}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Information-boksen -->
+    <div class="box">
+      Information
+
+      <div class="subtext">Hvor er bogen solgt:</div>
+
+      <div class="action-box info-row">
+        <label class="check-item">
+          <input type="radio"
+                name="soldPlace"
+                [value]="'dba'"
+                [(ngModel)]="soldPlace">
+          <span class="circle"></span>
+          Den blå avis
+        </label>
+
+        <label class="check-item">
+          <input type="radio"
+                name="soldPlace"
+                [value]="'vinted'"
+                [(ngModel)]="soldPlace">
+          <span class="circle"></span>
+          Vinted
+        </label>
+      </div>
+
+      <div class="subtext">Hvordan er bogen afhentet:</div>
+
+      <div class="action-box info-row">
+        <label class="check-item">
+          <input type="radio"
+                name="delivery"
+                [value]="'hent'"
+                [(ngModel)]="delivery">
+          <span class="circle"></span>
+          Hent
+        </label>
+
+        <label class="check-item">
+          <input type="radio"
+                name="delivery"
+                [value]="'sendt'"
+                [(ngModel)]="delivery">
+          <span class="circle"></span>
+          Sendt
+        </label>
+      </div>
+
+      <div class="subtext">Er bogen solgt med andre bøger:</div>
+
+      <div class="action-box info-row">
+        <label class="check-item">
+          <input type="radio"
+                name="soldWithOthers"
+                id="soldWithOthersYes"
+                [(ngModel)]="soldWithOthers"
+                [value]="true"
+                (click)="updateOtherBooks()">
+          <span class="circle"></span>
+          Ja
+        </label>
+
+        <label class="check-item">
+          <input type="radio"
+                name="soldWithOthers"
+                id="soldWithOthersNo"
+                [(ngModel)]="soldWithOthers"
+                [value]="false"
+                (click)="soldWithOthers = false; updateOtherBooks()">
+          <span class="circle"></span>
+          Nej
+        </label>
+      </div>
+
+      <!-- Bøger solgt med -->
+      <div *ngIf="soldWithOthers" style="margin-top: 10px;">
+        <label>Hvilke bøger:</label>
+        <input type="number"
+              min="1"
+              [(ngModel)]="amount"
+              (ngModelChange)="updateOtherBooks()"
+              style="width:60px;">
+      </div>
+
+      <div *ngIf="soldWithOthers && amount > 0" style="margin-top:10px;">
+        <div *ngFor="let book of otherBooks; let i = index" style="margin-top: 12px;">
+
+          <label>Bog {{ i + 1 }}:</label>
+          <input type="text" [(ngModel)]="otherBooks[i]" style="width: 100%;">
+
+          <label style="margin-top: 6px; display:block;">Information:</label>
+          <textarea rows="3" style="width: 100%;"></textarea>
+
+        </div>
+      </div>
+
+    </div>
+
   </div>
-
-  <!-- De andre bokse -->
-  <div class="box">Søge i database</div>
-  <div class="box">
-    
-    Information
-
-  <div class="subtext">Hvor er bogen solgt:</div>
-
-<div class="action-box info-row">
-  <label class="check-item">
-    <input type="checkbox">
-    <span class="circle"></span>
-    Den blå avis
-  </label>
-
-  <label class="check-item">
-    <input type="checkbox">
-    <span class="circle"></span>
-    Vinted
-  </label>
-</div>
-
-<div class="subtext">Hvordan er bogen afhentet:</div>
-
-  <div class="action-box info-row">
-    <label class="check-item">
-      <input type="checkbox">
-      <span class="circle"></span>
-      Hent
-    </label>
-
-    <label class="check-item">
-      <input type="checkbox">
-      <span class="circle"></span>
-      Sendt
-    </label>
-</div>
-
-<div class="subtext">Er bogen solgt med andre bøger:</div>
-
-  <div class="action-box info-row">
-    <label class="check-item">
-      <input type="radio" name="soldWithOthers"id="soldWithOthersYes" (click)="soldWithOthers = true; updateOtherBooks()">
-      <span class="circle"></span>
-      Ja
-    </label>
-
-    <label class="check-item">
-      <input type="radio" name="soldWithOthers" id="soldWithOthersNo" (click)="soldWithOthers = false;">
-      <span class="circle"></span>
-      Nej
-    </label>
-</div>
-  <!-- Bøger solgt med -->
-
-<div *ngIf="soldWithOthers" style="margin-top: 10px;">
-  <label>Hvilke bøger:</label>
-  <input type="number"
-          min="1"
-          [(ngModel)]="amount"
-          (ngModelChange)="updateOtherBooks()"
-          style="width:60px;">
-</div>
-
-<div *ngIf="soldWithOthers && amount > 0" style="margin-top:10px;">
-  <div *ngFor="let book of otherBooks; let i = index" style="margin-top: 12px;">
-
-    <label>Bog {{ i + 1 }}:</label>
-    <input type="text" [(ngModel)]="otherBooks[i]" style="width: 100%;">
-
-    <label style="margin-top: 6px; display:block;">Information:</label>
-    <textarea rows="3" style="width: 100%;"></textarea>
-
-  </div>
-</div>
-
-</div>
 
 
 

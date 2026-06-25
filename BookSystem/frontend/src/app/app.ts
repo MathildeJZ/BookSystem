@@ -13,9 +13,27 @@ import { CommonModule } from '@angular/common';
 export class App {
   protected readonly title = signal('frontend');
 
-  soldWithOthers = false;
+  soldPlace: string= '';
+  delivery: string= '';
+  soldWithOthers: boolean = false;
+
   amount = 1;
   otherBooks: string[] = [];
+
+  searchValue: string ='';
+  searchResults: string[] = [];
+
+  allBooks: string[] =[
+    "Den Guddommelige Komedie",
+    "Moby Dick",
+    "Det evige smil"
+  ];
+
+  onSearch(){
+    const query = this.searchValue.toLowerCase();
+
+    this.searchResults = this.allBooks.filter(book => book.toLowerCase().includes(query));
+  }
 
   updateOtherBooks() {
     this.otherBooks = Array(this.amount).fill('');
