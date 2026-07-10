@@ -4,10 +4,13 @@
     <h1>Den Sorte Boghandel</h1>
 
     <!-- Tema-knap -->
-  <button class="action-btn theme-toggle" (click)="toggleTheme()">
-    <span class="material-symbols-outlined">dark_mode</span>
+    <button class="action-btn theme-toggle" (click)="toggleTheme()">
+    <span class="material-symbols-outlined">
+      {{ theme() === 'light' ? 'light_mode' : 'dark_mode' }}
+    </span>
     Skift tema
-  </button>
+    </button>
+
 
 
   <div class="box-container">

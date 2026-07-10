@@ -26,15 +26,16 @@ export class App {
     }
   }
 
-  toggleTheme() {
-    const newTheme = this.theme() === 'light' ? 'dark' : 'light';
-    this.theme.set(newTheme);
+    toggleTheme() {
+      const newTheme = this.theme() === 'light' ? 'dark' : 'light';
+      this.theme.set(newTheme);
 
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('theme', newTheme);
-      document.documentElement.setAttribute('data-theme', newTheme);
-    }
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('theme', newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+      }
   }
+
 
   // --- Dine eksisterende variabler ---
   soldPlace: string = '';
