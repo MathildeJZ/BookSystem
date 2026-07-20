@@ -7,10 +7,12 @@
 }
 
 [data-theme="dark"] {
+  --bg-blur: rgba(30, 30, 30, 0.8); /* mørk boks */
   --text-color: #fff;
-  --box-shadow: rgba(0,0,0,0.35);
+  --box-shadow: rgba(255,255,255,0.15);
   --accent: #fff;
 }
+
 
 [data-theme="light"] {
   --bg-blur: #fff018;
@@ -70,12 +72,16 @@ body, .box, .action-btn, .search-input, .check-item {
 
 /* --- Bokse --- */
 .box {
-  background: var(--bg-blur);   
+background: #dcedc8;
+--bg-blur: rgba(250, 240, 120, 0.85);
   border-radius: 16px;
   padding: 20px;
   color: var(--text-color);
   box-shadow: 0 4px 20px var(--box-shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+--accent: #7cb342;
+;
+
 }
 
 
@@ -100,6 +106,8 @@ body, .box, .action-btn, .search-input, .check-item {
   font-size: 16px;
   color: var(--text-color);
   cursor: pointer;
+  background: var(--bg-blur);
+
 
   display: flex;
   align-items: center;
@@ -197,7 +205,11 @@ body, .box, .action-btn, .search-input, .check-item {
   flex-direction: column;
   gap: 12px;
   margin-top: 20px;
+  background: rgba(255, 245, 120, 0.6);
 }
+
+
+
 
 .search-input {
   width: 90%;
@@ -208,8 +220,11 @@ body, .box, .action-btn, .search-input, .check-item {
   color: var(--text-color);
   font-size: 16px;
   outline: none;
-  transition: box-shadow 0.25s ease, background 0.25s ease;
+  transition: box-shadow 0.25s ease;
+  background: rgba(255, 255, 255, 0.6); /* frisk, let transparent hvid */
 }
+
+
 
 .search-input:focus {
   box-shadow: 0 0 0 3px var(--accent);
@@ -220,6 +235,8 @@ body, .box, .action-btn, .search-input, .check-item {
   border-radius: 12px;
   padding: 12px;
   animation: fadeIn 0.25s ease;
+  background: var(--bg-blur);
+
 }
 
 @keyframes fadeIn {
@@ -239,3 +256,8 @@ body, .box, .action-btn, .search-input, .check-item {
 .result-item:last-child { border-bottom: none; }
 
 
+.theme-toggle {
+  background: rgba(49, 250, 139, 0.7); 
+  border: 1px solid rgba(0,0,0,0.2);
+  color: var(--text-color);
+}

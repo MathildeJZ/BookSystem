@@ -36,7 +36,6 @@ export class App {
       }
   }
 
-
   // --- Dine eksisterende variabler ---
   soldPlace: string = '';
   delivery: string = '';

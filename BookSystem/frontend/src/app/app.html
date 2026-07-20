@@ -1,17 +1,15 @@
-  <div class="hero-bg"></div>
+<div class="hero-bg"></div>
 
-  <div class="content">
-    <h1>Den Sorte Boghandel</h1>
+<div class="content">
+  <h1>Den Sorte Boghandel</h1>
 
-    <!-- Tema-knap -->
-    <button class="action-btn theme-toggle" (click)="toggleTheme()">
+  <!-- Tema-knap -->
+  <button class="action-btn theme-toggle" (click)="toggleTheme()">
     <span class="material-symbols-outlined">
       {{ theme() === 'light' ? 'light_mode' : 'dark_mode' }}
     </span>
     Skift tema
-    </button>
-
-
+  </button>
 
   <div class="box-container">
 
@@ -20,18 +18,25 @@
       Handlinger
 
       <div class="action-box">
-      <button class="action-btn">
-        <span class="material-icons">add </span>
-        Tilføj bog</button>        
-      <button class="action-btn">
-        <span class="material-icons">delete</span>
-        Slet bog</button>
-      <button class="action-btn">
-        <span class="material-icons">update</span>
-        Opdater bog</button>
-      <button class="action-btn">
-        <span class="material-icons">info</span>
-        Information om bog</button>
+        <button class="action-btn">
+          <span class="material-icons">add</span>
+          Tilføj bog
+        </button>
+
+        <button class="action-btn">
+          <span class="material-icons">delete</span>
+          Slet bog
+        </button>
+
+        <button class="action-btn">
+          <span class="material-icons">update</span>
+          Opdater bog
+        </button>
+
+        <button class="action-btn">
+          <span class="material-icons">info</span>
+          Information om bog
+        </button>
       </div>
     </div>
 
@@ -42,11 +47,13 @@
       <div class="search-container">
 
         <!-- Søgefelt -->
-        <input type="text"
-              placeholder="Søg i database..."
-              [(ngModel)]="searchValue"
-              (input)="onSearch()"
-              class="search-input">
+        <input
+          type="text"
+          placeholder="Illiaden..."
+          [(ngModel)]="searchValue"
+          (input)="onSearch()"
+          class="search-input"
+        />
 
         <!-- Resultat-kasse -->
         <div class="search-results" *ngIf="searchResults.length > 0">
@@ -66,19 +73,23 @@
 
       <div class="action-box info-row">
         <label class="check-item">
-          <input type="radio"
-                name="soldPlace"
-                [value]="'dba'"
-                [(ngModel)]="soldPlace">
+          <input
+            type="radio"
+            name="soldPlace"
+            [value]="'dba'"
+            [(ngModel)]="soldPlace"
+          />
           <span class="circle"></span>
           Den blå avis
         </label>
 
         <label class="check-item">
-          <input type="radio"
-                name="soldPlace"
-                [value]="'vinted'"
-                [(ngModel)]="soldPlace">
+          <input
+            type="radio"
+            name="soldPlace"
+            [value]="'vinted'"
+            [(ngModel)]="soldPlace"
+          />
           <span class="circle"></span>
           Vinted
         </label>
@@ -88,19 +99,23 @@
 
       <div class="action-box info-row">
         <label class="check-item">
-          <input type="radio"
-                name="delivery"
-                [value]="'hent'"
-                [(ngModel)]="delivery">
+          <input
+            type="radio"
+            name="delivery"
+            [value]="'hent'"
+            [(ngModel)]="delivery"
+          />
           <span class="circle"></span>
           Hent
         </label>
 
         <label class="check-item">
-          <input type="radio"
-                name="delivery"
-                [value]="'sendt'"
-                [(ngModel)]="delivery">
+          <input
+            type="radio"
+            name="delivery"
+            [value]="'sendt'"
+            [(ngModel)]="delivery"
+          />
           <span class="circle"></span>
           Sendt
         </label>
@@ -110,23 +125,27 @@
 
       <div class="action-box info-row">
         <label class="check-item">
-          <input type="radio"
-                name="soldWithOthers"
-                id="soldWithOthersYes"
-                [(ngModel)]="soldWithOthers"
-                [value]="true"
-                (click)="updateOtherBooks()">
+          <input
+            type="radio"
+            name="soldWithOthers"
+            id="soldWithOthersYes"
+            [(ngModel)]="soldWithOthers"
+            [value]="true"
+            (click)="updateOtherBooks()"
+          />
           <span class="circle"></span>
           Ja
         </label>
 
         <label class="check-item">
-          <input type="radio"
-                name="soldWithOthers"
-                id="soldWithOthersNo"
-                [(ngModel)]="soldWithOthers"
-                [value]="false"
-                (click)="soldWithOthers = false; updateOtherBooks()">
+          <input
+            type="radio"
+            name="soldWithOthers"
+            id="soldWithOthersNo"
+            [(ngModel)]="soldWithOthers"
+            [value]="false"
+            (click)="soldWithOthers = false; updateOtherBooks()"
+          />
           <span class="circle"></span>
           Nej
         </label>
@@ -135,20 +154,26 @@
       <!-- Bøger solgt med -->
       <div *ngIf="soldWithOthers" style="margin-top: 10px;">
         <label>Hvilke bøger:</label>
-        <input type="number"
-              min="1"
-              [(ngModel)]="amount"
-              (ngModelChange)="updateOtherBooks()"
-              style="width:60px;">
+        <input
+          type="number"
+          min="1"
+          [(ngModel)]="amount"
+          (ngModelChange)="updateOtherBooks()"
+          style="width: 60px;"
+        />
       </div>
 
-      <div *ngIf="soldWithOthers && amount > 0" style="margin-top:10px;">
+      <div *ngIf="soldWithOthers && amount > 0" style="margin-top: 10px;">
         <div *ngFor="let book of otherBooks; let i = index" style="margin-top: 12px;">
 
           <label>Bog {{ i + 1 }}:</label>
-          <input type="text" [(ngModel)]="otherBooks[i]" style="width: 100%;">
+          <input
+            type="text"
+            [(ngModel)]="otherBooks[i]"
+            style="width: 100%;"
+          />
 
-          <label style="margin-top: 6px; display:block;">Information:</label>
+          <label style="margin-top: 6px; display: block;">Information:</label>
           <textarea rows="3" style="width: 100%;"></textarea>
 
         </div>
@@ -157,6 +182,8 @@
     </div>
 
   </div>
+</div>
+
 
 
 
