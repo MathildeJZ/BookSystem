@@ -1,7 +1,6 @@
-
-/*dar/light mode*/
+/* --- Temaer --- */
 :root {
-  --bg-blur: rgba(255, 243, 176, 0.95);
+  --bg-blur: #fff018; /* klar gul */
   --text-color: #000;
   --box-shadow: rgba(0,0,0,0.25);
   --accent: #000;
@@ -14,18 +13,16 @@
 }
 
 [data-theme="light"] {
+  --bg-blur: #fff018;
   --text-color: #000;
   --box-shadow: rgba(0,0,0,0.15);
   --accent: #000;
 }
 
-
-
-
+/* --- Fonts --- */
 body, .box, .action-btn, .search-input, .check-item {
   font-family: 'Montserrat', sans-serif;
 }
-
 
 /* --- Baggrund --- */
 .hero-bg {
@@ -48,7 +45,7 @@ body, .box, .action-btn, .search-input, .check-item {
   color: var(--text-color);
 }
 
-/* --- Bokse layout --- */
+/* --- Layout --- */
 .box-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -58,39 +55,22 @@ body, .box, .action-btn, .search-input, .check-item {
 }
 
 @keyframes pageFade {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Tablet */
 @media (max-width: 1100px) {
-  .box-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .box-container { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Mobil */
 @media (max-width: 700px) {
-  .box-container {
-    grid-template-columns: 1fr;
-  }
-
-  .action-btn {
-    width: 100%;
-    justify-content: center;
-  }
+  .box-container { grid-template-columns: 1fr; }
+  .action-btn { width: 100%; justify-content: center; }
 }
 
-/* --- Glassmorphism bokse --- */
+/* --- Bokse --- */
 .box {
-  background: var(--bg-blur);
-  backdrop-filter: blur(12px);
+  background: var(--bg-blur);   
   border-radius: 16px;
   padding: 20px;
   color: var(--text-color);
@@ -112,12 +92,10 @@ body, .box, .action-btn, .search-input, .check-item {
   margin-top: 20px;
 }
 
-/* --- Moderne knapper --- */
+/* --- Knapper --- */
 .action-btn {
   padding: 14px 18px;
-  background: var(--bg-blur);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--accent);   /* ← DEN VIGTIGE RETTELSE */
+  border: 1px solid var(--accent);
   border-radius: 12px;
   font-size: 16px;
   color: var(--text-color);
@@ -131,23 +109,15 @@ body, .box, .action-btn, .search-input, .check-item {
   position: relative;
   box-shadow: 0 4px 12px var(--box-shadow);
 
-  transition:
-    transform 0.15s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: transform 0.15s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
-
-
 .action-btn:hover {
-  background: var(--bg-blur);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px var(--box-shadow);
 }
 
-.action-btn:active {
-  transform: scale(0.97);
-}
+.action-btn:active { transform: scale(0.97); }
 
 .action-btn::after {
   content: "";
@@ -159,9 +129,7 @@ body, .box, .action-btn, .search-input, .check-item {
   transition: opacity 0.25s ease;
 }
 
-.action-btn:hover::after {
-  opacity: 1;
-}
+.action-btn:hover::after { opacity: 1; }
 
 /* --- Custom radio-knapper --- */
 .check-item {
@@ -171,22 +139,32 @@ body, .box, .action-btn, .search-input, .check-item {
   cursor: pointer;
   font-size: 18px;
   user-select: none;
+  position: relative;
 }
 
+/* skjul native radio */
 .check-item input[type="radio"] {
-  display: none;
+  position: absolute;
+  opacity: 0;
 }
 
-.circle {
+/* cirkel */
+.check-item .circle {
   width: 22px;
   height: 22px;
-border: 2px solid var(--accent);
+  border: 2px solid var(--accent);
   border-radius: 50%;
   position: relative;
-  margin-right: 15px;
+  margin-right: 8px;
+  background: rgba(0,0,0,0.05);
 }
 
-.check-item input[type="radio"]:checked + .circle::after {
+[data-theme="dark"] .check-item .circle {
+  background: rgba(255,255,255,0.15);
+}
+
+/* den lille sorte prik */
+.check-item input[type="radio"]:checked ~ .circle::after {
   content: "";
   width: 12px;
   height: 12px;
@@ -227,8 +205,6 @@ border: 2px solid var(--accent);
   padding: 12px 16px;
   border-radius: 30px;
   border: none;
-  background: var(--bg-blur);
-  backdrop-filter: blur(10px);
   color: var(--text-color);
   font-size: 16px;
   outline: none;
@@ -236,28 +212,19 @@ border: 2px solid var(--accent);
 }
 
 .search-input:focus {
-  background: var(--bg-blur);
   box-shadow: 0 0 0 3px var(--accent);
 }
 
 /* --- Søgeresultater --- */
 .search-results {
-  background:  var(--bg-blur);
-  backdrop-filter: blur(12px);
   border-radius: 12px;
   padding: 12px;
   animation: fadeIn 0.25s ease;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .result-item {
@@ -267,15 +234,8 @@ border: 2px solid var(--accent);
   transition: background 0.2s ease;
 }
 
+.result-item:hover { background: var(--bg-blur); }
 
-.result-item:hover {
-  background: var(--bg-blur);
-}
-
-.result-item:last-child {
-  border-bottom: none;
-}
-
-
+.result-item:last-child { border-bottom: none; }
 
 
