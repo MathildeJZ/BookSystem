@@ -1,3 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-weight: normal;
+}
 /* --- Temaer --- */
 :root {
   --bg-blur: #fff018; /* klar gul */
@@ -6,15 +13,15 @@
   --accent: #000;
 }
 
-[data-theme="dark"] {
-  --bg-blur: rgba(30, 30, 30, 0.8); /* mørk boks */
+html[data-theme="dark"] {
+  --bg-blur: rgba(30, 30, 30, 0.8);
   --text-color: #fff;
   --box-shadow: rgba(255,255,255,0.15);
   --accent: #fff;
 }
 
 
-[data-theme="light"] {
+html[data-theme="light"] {
   --bg-blur: #fff018;
   --text-color: #000;
   --box-shadow: rgba(0,0,0,0.15);
@@ -32,8 +39,9 @@ body, .box, .action-btn, .search-input, .check-item {
   inset: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/bookshelf.jpg');
-  background-size: cover;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+    url('/bookshelf.jpg');  background-size: cover;
   background-position: center;
   opacity: 0.4;
   z-index: -1;
@@ -72,16 +80,18 @@ body, .box, .action-btn, .search-input, .check-item {
 
 /* --- Bokse --- */
 .box {
-background: #dcedc8;
---bg-blur: rgba(250, 240, 120, 0.85);
+   background: #dcedc8;
+  --bg-blur: rgba(250, 240, 120, 0.85);
   border-radius: 16px;
+  backdrop-filter: blur(12px);
   padding: 20px;
   color: var(--text-color);
   box-shadow: 0 4px 20px var(--box-shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
---accent: #7cb342;
-;
-
+  --accent: #7cb342;
+  height:300px;
+  overflow-y:auto;
+  scrollbar-width: thin;
 }
 
 
@@ -257,7 +267,12 @@ background: #dcedc8;
 
 
 .theme-toggle {
-  background: rgba(49, 250, 139, 0.7); 
+  background: rgba(184, 240, 209, 0.7); 
   border: 1px solid rgba(0,0,0,0.2);
   color: var(--text-color);
+}
+
+html {
+  transition: background-color 0.4s ease, color 0.4s ease, 
+              filter 0.4s ease, backdrop-filter 0.4s ease;
 }
