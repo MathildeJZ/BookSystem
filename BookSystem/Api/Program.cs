@@ -1,5 +1,7 @@
-using Api.Application.Interfaces;
-using Api.Infrastructure.Repositories;
+using Application.Interfaces;
+using Infrastructure.Repositories;
+using Infrastructure.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

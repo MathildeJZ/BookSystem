@@ -1,23 +1,34 @@
-using Api.Application.Interfaces;
-using Api.Domain.Entities;
+using Application.Interfaces;
+using Domain.Entities;
 
-namespace Api.Infrastructure.Repositories;
+namespace Infrastructure.Repositories;
 
 public class BookRepository : IBookRepository
 {
     private readonly List<Book> _books = new();
 
-    public Book Add(Book book)
+    public Task<Book?> Get(int id)
+    {
+        return Task.FromResult(_books.FirstOrDefault(b => b.Id == id));
+    }
+
+    public Task<IEnumerable<Book>> GetAll()
+    {
+        return Task.FromResult(_books.AsEnumerable());
+    }
+
+    public Task<Book> Add(Book book)
     {
         book.Id = _books.Count + 1;
         _books.Add(book);
-        return book;
+        return Task.FromResult(book);
     }
 
-    public Book Update(int id, Book book)
+    public Task<Book> Update(Book book)
     {
-        var existing = _books.FirstOrDefault(b => b.Id == id);
-        if (existing == null) return null;
+        var existing = _books.FirstOrDefault(b => b.Id == book.Id);
+        if (existing == null)
+            return Task.FromResult<Book>(null!);
 
         existing.Title = book.Title;
         existing.Author = book.Author;
@@ -26,17 +37,18 @@ public class BookRepository : IBookRepository
         existing.Pages = book.Pages;
         existing.Publisher = book.Publisher;
 
-        return existing;
+        return Task.FromResult(existing);
     }
 
-    public void Delete(int id)
+    public Task<bool> Delete(int id)
     {
         var book = _books.FirstOrDefault(b => b.Id == id);
-        if (book != null) _books.Remove(book);
-    }
+        if (book == null)
+            return Task.FromResult(false);
 
-    public Book Get(int id)
-    {
-        return _books.FirstOrDefault(b => b.Id == id);
+        _books.Remove(book);
+        return Task.FromResult(true);
     }
 }
+
+

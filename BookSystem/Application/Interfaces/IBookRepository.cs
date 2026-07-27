@@ -1,12 +1,13 @@
-using Api.Domain.Entities;
+using Domain.Entities;
 
-namespace Api.Application.Interfaces;
+namespace Application.Interfaces;
 
 public interface IBookRepository
-    {
-    
-    Book Add(Book book);
-    Book Update(int id, Book book);
-    void Delete(int id);
-    Book Get(int id);   
+{
+    Task<Book?> Get(int id);
+    Task<IEnumerable<Book>> GetAll();
+    Task<Book> Add(Book book);
+    Task<Book> Update(Book book);
+    Task<bool> Delete(int id);
 }
+
