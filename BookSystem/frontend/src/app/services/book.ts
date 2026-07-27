@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+export interface Book {
+  id: number;
+  title: string;
+  info: string;
+}
 
-@Injectable({
-  providedIn: 'root',
-})
-export class Book {}
