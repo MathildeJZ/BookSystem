@@ -1,5 +1,7 @@
 using Application.Interfaces;
 using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddSingleton<IBookRepository, BookRepository>();
 
 // Add Swagger (optional)
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<BookDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));//hvordan ef core skal forbinde til databasen.
+
 
 var app = builder.Build();
 
