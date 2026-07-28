@@ -32,16 +32,16 @@
         pages: this.pages
         };
 
-        this.bookService.addBook(newBook)
-        .subscribe(result => {
-            console.log(result);
-            this.book = result;
+        this.bookService.add(newBook).subscribe(result => {
+        console.log(result);
+        this.book = result;
         });
     }
 
     deleteBook() {
-        this.bookService.deleteBook(this.id)
-        .subscribe(() => console.log('Deleted'));
+        this.bookService.delete(this.id).subscribe(() => {
+        console.log('Deleted');
+        });
     }
 
     updateBook() {
@@ -55,18 +55,16 @@
         pages: this.pages
         };
 
-        this.bookService.updateBook(this.id, updatedBook)
-        .subscribe(result => {
-            console.log(result);
-            this.book = result;
+        this.bookService.update(updatedBook).subscribe(result => {
+        console.log(result);
+        this.book = result;
         });
     }
 
     getBook() {
-        this.bookService.getBook(this.id)
-        .subscribe(result => {
-            console.log(result);
-            this.book = result;
+        this.bookService.get(this.id).subscribe(result => {
+        console.log(result);
+        this.book = result;
         });
     }
     }

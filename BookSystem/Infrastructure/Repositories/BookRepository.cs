@@ -1,54 +1,60 @@
 using Application.Interfaces;
 using Domain.Entities;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
-
-public class BookRepository : IBookRepository
+namespace Infrastructure.Repositories
 {
-    private readonly List<Book> _books = new();
-
-    public Task<Book?> Get(int id)
+    public class BookRepository : IBookRepository
     {
-        return Task.FromResult(_books.FirstOrDefault(b => b.Id == id));
-    }
+        private readonly BookDbContext _context;
 
-    public Task<IEnumerable<Book>> GetAll()
-    {
-        return Task.FromResult(_books.AsEnumerable());
-    }
+        public BookRepository(BookDbContext context)
+        {
+            _context = context;
+        }
 
-    public Task<Book> Add(Book book)
-    {
-        book.Id = _books.Count + 1;
-        _books.Add(book);
-        return Task.FromResult(book);
-    }
+        public async Task<Book?> Get(int id)
+        {
+            return await _context.Books.FindAsync(id);
+        }
 
-    public Task<Book> Update(Book book)
-    {
-        var existing = _books.FirstOrDefault(b => b.Id == book.Id);
-        if (existing == null)
-            return Task.FromResult<Book>(null!);
+        public async Task<IEnumerable<Book>> GetAll()
+        {
+            return await _context.Books.ToListAsync();
+        }
 
-        existing.Title = book.Title;
-        existing.Author = book.Author;
-        existing.Price = book.Price;
-        existing.Year = book.Year;
-        existing.Pages = book.Pages;
-        existing.Publisher = book.Publisher;
+        public async Task<Book> Add(Book book)
+        {
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+            return book;
+        }
 
-        return Task.FromResult(existing);
-    }
+        public async Task<Book?> Update(Book book)
+        {
+            var existing = await _context.Books.FindAsync(book.Id);
+            if (existing == null)
+                return null;
 
-    public Task<bool> Delete(int id)
-    {
-        var book = _books.FirstOrDefault(b => b.Id == id);
-        if (book == null)
-            return Task.FromResult(false);
+            _context.Entry(existing).CurrentValues.SetValues(book);
+            await _context.SaveChangesAsync();
+            return existing;
+        }
 
-        _books.Remove(book);
-        return Task.FromResult(true);
+        public async Task<bool> Delete(int id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+                return false;
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }
+//henter data fra PostgreSQL, opdaterer og sletter rækker i databasen.
+
 
 
