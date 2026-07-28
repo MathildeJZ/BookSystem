@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JM29Q4D2c0c=",
+  "dgSpecHash": "5DgbmwlEBp8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\admin\\Documents\\Projects\\booksystem\\Application\\Application.csproj",
+  "projectFilePath": "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.24\\microsoft.netcore.app.ref.8.0.24.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.24\\microsoft.windowsdesktop.app.ref.8.0.24.nupkg.sha512",

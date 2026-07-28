@@ -4083,8 +4083,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\admin\\Documents\\Projects\\booksystem\\Application\\Application.csproj": {
-              "projectPath": "C:\\Users\\admin\\Documents\\Projects\\booksystem\\Application\\Application.csproj"
+            "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Application\\Application.csproj": {
+              "projectPath": "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Application\\Application.csproj"
             },
             "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Domain\\Domain.csproj": {
               "projectPath": "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Domain\\Domain.csproj"

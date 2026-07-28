@@ -1,29 +1,29 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Book} from './book';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Book } from './book';
 
-@Injectable({
+    @Injectable({
     providedIn: 'root'
-})
-export class BookService {
+    })
+    export class BookService {
 
-        private apiUrl = 'http://localhost:5000/api/books';
+    private apiUrl = 'http://localhost:5000/api/books';
 
-        constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-        addBook(book: any) {
-            return this.http.post(this.apiUrl, book);
-        }
+    addBook(book: Book) {
+        return this.http.post<Book>(this.apiUrl, book);
+    }
 
-        deleteBook(id: number) {
-            return this.http.delete(`${this.apiUrl}/${id}`);
-        }
+    deleteBook(id: number) {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
 
-        updateBook(id: number, book: any) {
-            return this.http.put(`${this.apiUrl}/${id}`, book);
-        }
+    updateBook(id: number, book: Book) {
+        return this.http.put<Book>(`${this.apiUrl}/${id}`, book);
+    }
 
-        getBook(id: number) {
-            return this.http.get(`${this.apiUrl}/${id}`);
-        }
-}
+    getBook(id: number) {
+        return this.http.get<Book>(`${this.apiUrl}/${id}`);
+    }
+    }

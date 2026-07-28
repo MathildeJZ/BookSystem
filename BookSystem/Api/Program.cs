@@ -1,7 +1,5 @@
 using Application.Interfaces;
 using Infrastructure.Repositories;
-using Infrastructure.Data;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
