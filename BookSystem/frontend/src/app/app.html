@@ -51,16 +51,8 @@
           type="text"
           placeholder="Illiaden..."
           [(ngModel)]="searchValue"
-          (input)="onSearch()"
           class="search-input"
         />
-
-        <!-- Resultat-kasse -->
-        <div class="search-results" *ngIf="searchResults.length > 0">
-          <div class="result-item" *ngFor="let result of searchResults">
-            {{ result }}
-          </div>
-        </div>
 
       </div>
     </div>

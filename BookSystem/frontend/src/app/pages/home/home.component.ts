@@ -5,7 +5,7 @@
     @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrl: './home.component.css'
+    styleUrls: []
     })
     export class HomeComponent {
 

@@ -50,12 +50,6 @@ export class App {
   searchValue: string = '';
   books: Book[] = [];
 
-  onSearch() {
-    this.bookService.search(this.searchValue).subscribe(result => {
-      this.books = result;
-    });
-  }
-
   updateOtherBooks() {
     this.otherBooks = Array(this.amount).fill('');
   }
