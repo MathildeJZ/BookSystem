@@ -8,7 +8,7 @@
     })
     export class BookService {
 
-    private apiUrl = 'https://localhost:5001/api/books';
+    private apiUrl = 'https://localhost:5000/api/books';
 
     constructor(private http: HttpClient) {}
 
@@ -30,5 +30,9 @@
 
     delete(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
+
+    search(query: string): Observable<Book[]> {
+        return this. http.get<Book[]>(`{this.apiYrl}/search?query=${query}`);
     }
     }

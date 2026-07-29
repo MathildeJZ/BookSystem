@@ -4,12 +4,17 @@
 
     @Component({
     selector: 'app-home',
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
     })
     export class HomeComponent {
 
-    id: number = 0;
+    // --- Søgning ---
+    searchQuery: string = "";
+    books: Book[] = [];
 
+    // --- CRUD felter ---
+    id: number = 0;
     title: string = '';
     author: string = '';
     publisher: string = '';
@@ -21,6 +26,14 @@
 
     constructor(private bookService: BookService) {}
 
+    // --- Søgning i DB ---
+    searchBooks() {
+        this.bookService.search(this.searchQuery).subscribe(result => {
+        this.books = result;
+        });
+    }
+
+    // --- CRUD ---
     addBook() {
         const newBook: Book = {
         id: 0,
@@ -69,6 +82,5 @@
     }
     }
 
-    
     
 

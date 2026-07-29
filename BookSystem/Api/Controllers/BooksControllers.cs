@@ -29,6 +29,12 @@ public class BooksController : ControllerBase
         var books = await _repo.GetAll();
         return Ok(books);
     }
+    [HttpGet("search")] //hent alle bøger
+    public async Task<IActionResult> Search(string query)
+    {
+        var books = await _repo.Search(query);
+        return Ok(books);
+    }
 
     [HttpPost]
     public async Task<IActionResult> Add(Book book)

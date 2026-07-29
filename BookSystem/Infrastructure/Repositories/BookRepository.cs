@@ -52,6 +52,15 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<List<Book>> Search(string query)
+        {
+            return await _context.Books
+                .Where(b => 
+                b.Title.ToLower().Contains(query) ||
+                b.Author.ToLower().Contains(query))
+            .ToListAsync();
+        }
     }
 }
 //henter data fra PostgreSQL, opdaterer og sletter rækker i databasen.

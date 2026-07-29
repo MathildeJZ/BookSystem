@@ -9,5 +9,6 @@ public interface IBookRepository
     Task<Book> Add(Book book);
     Task<Book> Update(Book book);
     Task<bool> Delete(int id);
+    Task<List<Book>> Search(string query);
 }
 

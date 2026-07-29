@@ -1,9 +1,11 @@
 import { Component, signal, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+
+import { Book } from './services/book';
+import { BookService } from './services/book.service';
 
 @Component({
   selector: 'app-root',
@@ -26,17 +28,17 @@ export class App {
     }
   }
 
-    toggleTheme() {
-      const newTheme = this.theme() === 'light' ? 'dark' : 'light';
-      this.theme.set(newTheme);
+  toggleTheme() {
+    const newTheme = this.theme() === 'light' ? 'dark' : 'light';
+    this.theme.set(newTheme);
 
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.setItem('theme', newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-      }
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('theme', newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+    }
   }
 
-  // --- Dine eksisterende variabler ---
+  // --- Dine variabler ---
   soldPlace: string = '';
   delivery: string = '';
   soldWithOthers: boolean = false;
@@ -44,26 +46,21 @@ export class App {
   amount = 1;
   otherBooks: string[] = [];
 
+  // --- Søgning ---
   searchValue: string = '';
-  searchResults: string[] = [];
-
-  allBooks: string[] = [
-    "Den Guddommelige Komedie",
-    "Moby Dick",
-    "Det evige smil"
-  ];
+  books: Book[] = [];
 
   onSearch() {
-    const query = this.searchValue.toLowerCase();
-    this.searchResults = this.allBooks.filter(book =>
-      book.toLowerCase().includes(query)
-    );
+    this.bookService.search(this.searchValue).subscribe(result => {
+      this.books = result;
+    });
   }
 
   updateOtherBooks() {
     this.otherBooks = Array(this.amount).fill('');
   }
 }
+
 
 
 
