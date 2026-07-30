@@ -8,7 +8,7 @@
     })
     export class BookService {
 
-    private apiUrl = 'https://localhost:5000/api/books';
+    private apiUrl = 'http://localhost:5000/api/books';
 
     constructor(private http: HttpClient) {}
 
@@ -33,6 +33,7 @@
     }
 
     search(query: string): Observable<Book[]> {
-        return this. http.get<Book[]>(`{this.apiYrl}/search?query=${query}`);
+    return this.http.get<Book[]>(`${this.apiUrl}/search?query=${query}`);
     }
+
     }

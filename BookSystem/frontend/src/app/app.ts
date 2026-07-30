@@ -1,16 +1,14 @@
 import { Component, signal, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-
-import { Book } from './services/book';
-import { BookService } from './services/book.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -37,25 +35,6 @@ export class App {
       document.documentElement.setAttribute('data-theme', newTheme);
     }
   }
-
-  // --- Dine variabler ---
-  soldPlace: string = '';
-  delivery: string = '';
-  soldWithOthers: boolean = false;
-
-  amount = 1;
-  otherBooks: string[] = [];
-
-  // --- Søgning ---
-  searchValue: string = '';
-  books: Book[] = [];
-
-  updateOtherBooks() {
-    this.otherBooks = Array(this.amount).fill('');
-  }
 }
-
-
-
 
 
