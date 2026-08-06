@@ -1,11 +1,12 @@
 export interface Book {
-  id: number;
+  id?: number;
   title: string;
   author: string;
   publisher: string;
   price: number;
   year: number;
   pages: number;
+  notes?: string;
 }
 
 

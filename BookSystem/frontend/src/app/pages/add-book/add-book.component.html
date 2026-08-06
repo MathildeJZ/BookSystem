@@ -1,0 +1,11 @@
+<h2> Tilføj bog</h2>
+    <button (click)="openModal()">Tilføj bog</button>
+
+    <app-add-book-modal
+    *ngIf="showModal"
+    (bookAdded)="saveBook($event)"
+    (modalClosed)="closeModal()">
+    </app-add-book-modal>
+
+    <button (click)="goBack()">Tilbage</button>
+    <button (click)="cancel()">Annuller</button>
