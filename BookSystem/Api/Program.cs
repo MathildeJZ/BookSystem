@@ -11,18 +11,28 @@ builder.Services.AddSingleton<IBookRepository, BookRepository>();
 
 // Add Swagger (optional)
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<BookDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));//hvordan ef core skal forbinde til databasen.
 
+// Database
+builder.Services.AddDbContext<BookDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// CORS – skal ligge FØR builder.Build()
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{}
+// Use CORS – skal ligge FØR Authorization
+app.UseCors("AllowAngular");
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
