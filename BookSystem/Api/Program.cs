@@ -1,40 +1,59 @@
-using Application.Interfaces;
-using Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Infrastructure.Data;
+    using Application.Interfaces;
+    using Infrastructure.Repositories;
+    using Microsoft.EntityFrameworkCore;
+    using Infrastructure.Data;
+    using Microsoft.OpenApi.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+    var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddSingleton<IBookRepository, BookRepository>();
+    // Controllers
+    builder.Services.AddControllers();
 
-// Add Swagger (optional)
-builder.Services.AddEndpointsApiExplorer();
+    // Repository
+    builder.Services.AddScoped<IBookRepository, BookRepository>();
 
-// Database
-builder.Services.AddDbContext<BookDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// CORS – skal ligge FØR builder.Build()
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngular", policy =>
+    // Swagger
+    builder.Services.AddSwaggerGen(c =>
     {
-        policy.WithOrigins("http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Book API", Version = "v1" });
     });
-});
 
-var app = builder.Build();
+    // Database
+    builder.Services.AddDbContext<BookDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Use CORS – skal ligge FØR Authorization
-app.UseCors("AllowAngular");
+    // CORS
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAngular", policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    });
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
+    var app = builder.Build();
 
-app.MapControllers();
+    // Developer exception page
+    app.UseDeveloperExceptionPage();
 
-app.Run();
+    // CORS
+    app.UseCors("AllowAngular");
+
+    // HTTPS
+    app.UseHttpsRedirection();
+
+    // Authorization
+    app.UseAuthorization();
+
+    // Swagger
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book API v1");
+    });
+
+    app.MapControllers();
+
+    app.Run();

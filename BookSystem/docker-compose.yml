@@ -22,7 +22,7 @@ services:
     depends_on:
       - postgres
     environment:
-      ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=BookDb;Username=postgres;Password=eddig24"
     ports:
       - "5000:5000"
