@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: Hejmeddig24
       POSTGRES_DB: BookDb
     ports:
-      - "5432:5432"
+      - "2026:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -23,7 +23,7 @@ services:
       - postgres
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
-      ConnectionStrings__DefaultConnection: "Host=localhost;Port=5432;Database=BookDb;Username=postgres;Password=Hejmeddig24"
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=BookDb;Username=postgres;Password=Hejmeddig24"
     ports:
       - "5000:5000"
 
