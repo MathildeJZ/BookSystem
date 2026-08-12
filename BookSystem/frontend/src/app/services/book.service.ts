@@ -8,7 +8,7 @@
     })
     export class BookService {
 
-    private apiUrl = 'http://localhost:5000/api/books';
+    private apiUrl = 'https://bookapi.nicestone-0d0bb1cc.northeurope.azurecontainerapps.io/api/books';
 
     constructor(private http: HttpClient) {}
 

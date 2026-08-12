@@ -6,6 +6,10 @@
 
     var builder = WebApplication.CreateBuilder(args);
 
+    //Bind til Azure Container Apps port
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
     // Controllers
     builder.Services.AddControllers();
 
@@ -42,7 +46,7 @@
     app.UseCors("AllowAngular");
 
     // HTTPS
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 
     // Authorization
     app.UseAuthorization();
