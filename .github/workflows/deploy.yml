@@ -11,9 +11,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          clean: true
+          ref: master
 
       - name: Login to Azure
         uses: azure/login@v1
