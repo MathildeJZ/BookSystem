@@ -3,7 +3,7 @@ name: Build and Deploy to Azure Container Apps
 on: 
   push:
     branches:
-      - main
+      - master
 
 jobs: 
   build-and-deploy:
@@ -76,5 +76,5 @@ jobs:
 
 
 
-            
+
     // husk at du skal spise is hver dag
