@@ -1,38 +1,8 @@
-name: Build and Deploy to Azure Container Apps
+  - name: Build Docker image
+  run: |
+    docker build -t booksystemregistry.azurecr.io/book-system:latest ./BookSystem
+  
+  - name: Push Docker image
+  run: |
+    docker push booksystemregistry.azurecr.io/book-system:latest
 
-on:
-  push:
-    branches:
-      - master
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Login to ACR
-        run: |
-          az acr login --name booksystemregistry
-
-      - name: Build Docker image
-        run: |
-          docker build -t booksystemregistry.azurecr.io/book-system:latest .
-
-      - name: Push Docker image
-        run: |
-          docker push booksystemregistry.azurecr.io/book-system:latest
-
-      - name: Deploy to Azure Container Apps
-        run: |
-          az containerapp update \
-            --name book-system \
-            --resource-group book-system-rg \
-            --image booksystemregistry.azurecr.io/book-system:latest
