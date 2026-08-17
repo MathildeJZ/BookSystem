@@ -23,12 +23,12 @@ jobs:
           az acr login --name booksystemregistry
 
       - name: Build Docker image
-        run: |
-          docker build -t booksystemregistry.azurecr.io/book-system:latest ./BookSystem
+            run: |
+              docker build -t booksystemregistry.azurecr.io/book-system:latest ./BookSystem
 
-      - name: Push Docker image
-        run: |
-          docker push booksystemregistry.azurecr.io/book-system:latest
+        - name: Push Docker image
+          run: |
+            docker push booksystemregistry.azurecr.io/book-system:latest
 
       - name: Deploy to Azure Container Apps
         run: |
@@ -36,3 +36,45 @@ jobs:
             --name book-system \
             --resource-group book-system-rg \
             --image booksystemregistry.azurecr.io/book-system:latest
+
+
+
+            //hey
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // husk at du skal spise is hver dag
