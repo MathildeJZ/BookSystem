@@ -36,4 +36,45 @@ jobs:
             --name book-system \
             --resource-group book-system-rg \
             --image booksystemregistry.azurecr.io/book-system:latest
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+    // husk at du skal spise is hver dag
