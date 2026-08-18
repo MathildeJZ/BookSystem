@@ -1,7 +1,7 @@
     using Application.Interfaces;
-    using Infrastructure.Repositories;
+    //using Infrastructure.Repositories;
     using Microsoft.EntityFrameworkCore;
-    using Infrastructure.Data;
+   // using Infrastructure.Data;
     using Microsoft.OpenApi.Models;
 
     var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +14,7 @@
     builder.Services.AddControllers();
 
     // Repository
-    builder.Services.AddScoped<IBookRepository, BookRepository>();
+   // builder.Services.AddScoped<IBookRepository, BookRepository>();
 
     // Swagger
     builder.Services.AddSwaggerGen(c =>
@@ -23,8 +23,8 @@
     });
 
     // Database
-    builder.Services.AddDbContext<BookDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    //builder.Services.AddDbContext<BookDbContext>(options =>
+        //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     // CORS
     builder.Services.AddCors(options =>
