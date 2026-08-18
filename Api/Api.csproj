@@ -24,7 +24,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>booksystem-api-secrets</UserSecretsId>
   </PropertyGroup>
 
 </Project>
