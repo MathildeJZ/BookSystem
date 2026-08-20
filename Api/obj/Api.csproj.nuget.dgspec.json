@@ -331,7 +331,14 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Application\\Application.csproj"
+              },
+              "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\admin\\Documents\\Projects\\BookSystem\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -349,6 +356,20 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

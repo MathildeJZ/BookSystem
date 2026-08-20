@@ -258,3 +258,8 @@ C:\Users\admin\Documents\Projects\BookSystem\Api\obj\Debug\net8.0\refint\Api.dll
 C:\Users\admin\Documents\Projects\BookSystem\Api\obj\Debug\net8.0\Api.pdb
 C:\Users\admin\Documents\Projects\BookSystem\Api\obj\Debug\net8.0\Api.genruntimeconfig.cache
 C:\Users\admin\Documents\Projects\BookSystem\Api\obj\Debug\net8.0\ref\Api.dll
+C:\Users\admin\Documents\Projects\BookSystem\Api\bin\Debug\net8.0\out\web.config
+C:\Users\admin\Documents\Projects\BookSystem\Api\bin\Debug\net8.0\out\Api.deps.json
+C:\Users\admin\Documents\Projects\BookSystem\Api\bin\Debug\net8.0\out\Api.runtimeconfig.json
+C:\Users\admin\Documents\Projects\BookSystem\Api\bin\Debug\net8.0\out\Api.staticwebassets.endpoints.json
+C:\Users\admin\Documents\Projects\BookSystem\Api\bin\Debug\net8.0\out\appsettings.json
