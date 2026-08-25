@@ -30,13 +30,17 @@ builder.Services.AddSwaggerGen(c =>
 // CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(
+            "http://localhost:3000",
+            "http://localhost:4200"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
 });
+
 
 var app = builder.Build();
 
@@ -47,6 +51,7 @@ app.UseMiddleware<CorrelationIdMiddleware>();
 
 app.UseDeveloperExceptionPage();
 app.UseCors("AllowAngular");
+app.UseCors("AllowFrontend");
 app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI(c =>

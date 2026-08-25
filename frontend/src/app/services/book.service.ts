@@ -37,4 +37,8 @@
     return this.http.get<Book[]>(`${this.apiUrl}/search?query=${query}`);
     }
 
+    getAllBooks(){
+        return this.http.get<Book[]>('http://localhost:5000/api/books');
+    }
+    
     }
