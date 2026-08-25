@@ -9,10 +9,12 @@ namespace Api.Controllers;
 public class BooksController : ControllerBase
 {
     private readonly IBookRepository _repo;
+    private readonly ILogger<BooksController> _logger;
 
-    public BooksController(IBookRepository repo)
+    public BooksController(IBookRepository repo, ILogger<BooksController> logger)
     {
         _repo = repo;
+        _logger = logger;
     }
 
     [HttpGet("{id}")]

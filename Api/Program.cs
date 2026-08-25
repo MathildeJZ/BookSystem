@@ -40,9 +40,46 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+    builder.Logging.ClearProviders();
+    builder.Logging.AddConsole();
+    builder.Logging.AddDebug();
+    builder.Logging.AddJsonConsole();
 
 
 var app = builder.Build();
+
+app.Use(async (context, next) =>
+{
+    var logger = context.RequestServices.GetRequiredService<ILoggerFactory>()
+        .CreateLogger("RequestLogger");
+
+    logger.LogInformation("Incoming request: {method} {path}",
+        context.Request.Method,
+        context.Request.Path);
+
+    await next();
+
+    logger.LogInformation("Response: {statusCode}", context.Response.StatusCode);
+});
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var logger = context.RequestServices.GetRequiredService<ILoggerFactory>()
+            .CreateLogger("GlobalException");
+
+        var exception = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>()?.Error;
+
+        logger.LogError(exception, "Unhandled exception occurred");
+
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsJsonAsync(new
+        {
+            error = "An unexpected error occurred."
+        });
+    });
+});
 
 // Middleware
 app.UseMiddleware<RequestLoggingMiddleware>();
