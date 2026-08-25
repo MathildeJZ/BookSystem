@@ -3,6 +3,7 @@ using Infrastructure.Repositories;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,11 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Middleware
+app.UseMiddleware<RequestLoggingMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<CorrelationIdMiddleware>();
 
 app.UseDeveloperExceptionPage();
 app.UseCors("AllowAngular");

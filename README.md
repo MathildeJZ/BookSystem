@@ -1,10 +1,10 @@
-# BookSystem 📚  
+# BookSystem 
 Et fuldstack projekt bygget med Angular, .NET, Docker, Azure Container Apps og Azure Static Web Apps.
 
-## 🚀 System Architecture
+## System Architecture
 ![Architecture](docs/architecture.png)
 
-## 🧱 Tech Stack
+## Tech Stack
 
 ### Frontend
 - Angular 17
@@ -26,9 +26,13 @@ Et fuldstack projekt bygget med Angular, .NET, Docker, Azure Container Apps og A
 - Pipeline 1: Build .NET → Docker → Deploy to Azure Container Apps  
 - Pipeline 2: Build Angular → Deploy to Azure Static Web Apps
 
+### Cloud
+- Azure Container Apps
+- Azure StaticWeb Apps
+- Azure PostgreSQL
 ---
 
-## 📦 Features
+## Features
 - Opret, rediger og slet bøger
 - Håndtering af forfattere og kategorier
 - API med Clean Architecture
@@ -38,5 +42,30 @@ Et fuldstack projekt bygget med Angular, .NET, Docker, Azure Container Apps og A
 
 ---
 
-## 🏗️ Projektstruktur
+### Solution structure
+
+## Domain
+- Entities
+- Value Objects
+- Interfaces for repositories
+
+## Application
+- Commands
+- Queries
+- Handlers
+-  Interfaces for repositories
+- DTO´s and validation
+
+## Infrastructure
+- EF Core DBContext
+- Repository-implementations
+- Database migrations
+- Azure-Integrations
+
+## Api
+- Controllers
+- Endpoints
+- Dependency Injections
+- Programs.cs
+
 
