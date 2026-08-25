@@ -35,61 +35,36 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(
             "http://localhost:3000",
             "http://localhost:4200"
-            )
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod();
     });
 });
-    builder.Logging.ClearProviders();
-    builder.Logging.AddConsole();
-    builder.Logging.AddDebug();
-    builder.Logging.AddJsonConsole();
 
+// Logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.AddJsonConsole();
+
+// Monitoring
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
-app.Use(async (context, next) =>
-{
-    var logger = context.RequestServices.GetRequiredService<ILoggerFactory>()
-        .CreateLogger("RequestLogger");
+// Health endpoint
+app.MapHealthChecks("/health");
 
-    logger.LogInformation("Incoming request: {method} {path}",
-        context.Request.Method,
-        context.Request.Path);
+// Custom middleware
+//app.UseMiddleware<CorrelationIdMiddleware>();
+//app.UseMiddleware<RequestLoggingMiddleware>();
+//app.UseMiddleware<ExceptionMiddleware>();
 
-    await next();
 
-    logger.LogInformation("Response: {statusCode}", context.Response.StatusCode);
-});
-
-app.UseExceptionHandler(errorApp =>
-{
-    errorApp.Run(async context =>
-    {
-        var logger = context.RequestServices.GetRequiredService<ILoggerFactory>()
-            .CreateLogger("GlobalException");
-
-        var exception = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>()?.Error;
-
-        logger.LogError(exception, "Unhandled exception occurred");
-
-        context.Response.StatusCode = 500;
-        await context.Response.WriteAsJsonAsync(new
-        {
-            error = "An unexpected error occurred."
-        });
-    });
-});
-
-// Middleware
-app.UseMiddleware<RequestLoggingMiddleware>();
-app.UseMiddleware<ExceptionMiddleware>();
-app.UseMiddleware<CorrelationIdMiddleware>();
-
-app.UseDeveloperExceptionPage();
-app.UseCors("AllowAngular");
+// Pipeline
 app.UseCors("AllowFrontend");
 app.UseAuthorization();
+
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
@@ -98,3 +73,4 @@ app.UseSwaggerUI(c =>
 
 app.MapControllers();
 app.Run();
+
