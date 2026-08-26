@@ -50,6 +50,8 @@ builder.Logging.AddJsonConsole();
 // Monitoring
 builder.Services.AddHealthChecks();
 
+builder.Services.AddApplicationInsightsTelemetry();
+
 var app = builder.Build();
 
 // Health endpoint
