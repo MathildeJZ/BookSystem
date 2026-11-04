@@ -3,56 +3,67 @@ using Domain.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
-
-public class BookRepository : IBookRepository
+namespace Infrastructure.Repositories
 {
-    private readonly BookDbContext _context;
-
-    public BookRepository(BookDbContext context)
+    public class BookRepository : IBookRepository
     {
-        _context = context;
-    }
+        private readonly BookDbContext _context;
 
-    public async Task<Book?> Get(int id)
-    {
-        return await _context.Books.FindAsync(id);
-    }
+        public BookRepository(BookDbContext context)
+        {
+            _context = context;
+        }
 
-    public async Task<IEnumerable<Book>> GetAll()
-    {
-        return await _context.Books.ToListAsync();
-    }
+        public async Task<Book?> Get(int id)
+        {
+            return await _context.Books.FindAsync(id);
+        }
 
-    public async Task<Book> Add(Book book)
-    {
-        _context.Books.Add(book);
-        await _context.SaveChangesAsync();
-        return book;
-    }
+        public async Task<IEnumerable<Book>> GetAll()
+        {
+            return await _context.Books.ToListAsync();
+        }
 
-    public async Task<Book> Update(Book book)
-    {
-        _context.Books.Update(book);
-        await _context.SaveChangesAsync();
-        return book;
-    }
+        public async Task<Book> Add(Book book)
+        {
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+            return book;
+        }
 
-    public async Task<bool> Delete(int id)
-    {
-        var book = await _context.Books.FindAsync(id);
-        if (book == null)
-            return false;
+        public async Task<Book?> Update(Book book)
+        {
+            var existing = await _context.Books.FindAsync(book.Id);
+            if (existing == null)
+                return null;
 
-        _context.Books.Remove(book);
-        await _context.SaveChangesAsync();
-        return true;
-    }
+            _context.Entry(existing).CurrentValues.SetValues(book);
+            await _context.SaveChangesAsync();
+            return existing;
+        }
 
-    public async Task<List<Book>> Search(string query)
-    {
-        return await _context.Books
-            .Where(b => b.Title.Contains(query) || b.Author.Contains(query))
+        public async Task<bool> Delete(int id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+                return false;
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<Book>> Search(string query)
+        {
+            return await _context.Books
+                .Where(b => 
+                b.Title.ToLower().Contains(query) ||
+                b.Author.ToLower().Contains(query))
             .ToListAsync();
+        }
     }
 }
+//henter data fra PostgreSQL, opdaterer og sletter rækker i databasen.
+
+
+

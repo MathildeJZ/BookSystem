@@ -9,12 +9,10 @@ namespace Api.Controllers;
 public class BooksController : ControllerBase
 {
     private readonly IBookRepository _repo;
-    private readonly ILogger<BooksController> _logger;
 
-    public BooksController(IBookRepository repo, ILogger<BooksController> logger)
+    public BooksController(IBookRepository repo)
     {
         _repo = repo;
-        _logger = logger;
     }
 
     [HttpGet("{id}")]
@@ -60,5 +58,4 @@ public class BooksController : ControllerBase
         if (!deleted) return NotFound();
         return Ok();
     }
-
 }

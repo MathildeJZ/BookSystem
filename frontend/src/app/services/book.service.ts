@@ -2,14 +2,13 @@
     import { HttpClient } from '@angular/common/http';
     import { Observable } from 'rxjs';
     import { Book } from '../services/book';
-    import { environment } from '../../enviroments/enviroment.prod';
 
     @Injectable({
     providedIn: 'root'
     })
     export class BookService {
 
-    private apiUrl = `${environment.apiUrl}/api/Books`;
+    private apiUrl = 'http://localhost:5000/api/books';
 
     constructor(private http: HttpClient) {}
 
@@ -37,8 +36,4 @@
     return this.http.get<Book[]>(`${this.apiUrl}/search?query=${query}`);
     }
 
-    getAllBooks(){
-        return this.http.get<Book[]>('http://localhost:5000/api/books');
-    }
-    
     }

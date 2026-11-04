@@ -6,7 +6,7 @@ export interface Book {
   price: number;
   year: number;
   pages: number;
-  notes?: string;
+  notes: string;
 }
 
 

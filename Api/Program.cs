@@ -1,78 +1,30 @@
 using Application.Interfaces;
 using Infrastructure.Repositories;
-using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using Infrastructure.Middleware;
+using Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Bind til Azure Container Apps port
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
-
-// Controllers
+// Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddSingleton<IBookRepository, BookRepository>();
 
-// Repository
-builder.Services.AddScoped<IBookRepository, BookRepository>();
-
-// Database
+// Add Swagger (optional)
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<BookDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));//hvordan ef core skal forbinde til databasen.
 
-// Swagger
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Book API", Version = "v1" });
-});
-
-// CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins(
-            "http://localhost:3000",
-            "http://localhost:4200"
-        )
-        .AllowAnyHeader()
-        .AllowAnyMethod();
-    });
-});
-
-// Logging
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
-builder.Logging.AddJsonConsole();
-
-// Monitoring
-builder.Services.AddHealthChecks();
-
-builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
 
-// Health endpoint
-app.MapHealthChecks("/health");
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{}
 
-// Custom middleware
-//app.UseMiddleware<CorrelationIdMiddleware>();
-//app.UseMiddleware<RequestLoggingMiddleware>();
-//app.UseMiddleware<ExceptionMiddleware>();
+app.UseHttpsRedirection();
 
-
-// Pipeline
-app.UseCors("AllowFrontend");
 app.UseAuthorization();
 
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Book API v1");
-});
-
 app.MapControllers();
-app.Run();
 
+app.Run();

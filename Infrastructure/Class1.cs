@@ -1,5 +1,6 @@
-namespace Infrastructure;
+﻿namespace Infrastructure;
 
 public class Class1
 {
+
 }
