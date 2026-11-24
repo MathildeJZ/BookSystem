@@ -33,7 +33,7 @@
     }
 
     search(query: string): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.apiUrl}/search?query=${query}`);
+    return this.http.get<Book[]>(`${this.apiUrl}/search`, { params: { query } });
     }
 
     }

@@ -1,6 +1,10 @@
-    import { Component } from '@angular/core';
+
+    import { Component, OnInit, inject } from '@angular/core';
     import { CommonModule } from '@angular/common';
     import { FormsModule } from '@angular/forms';
+
+    import { BookService } from '../../services/book.service';
+    import { Book } from '../../services/book';
 
     @Component({
     selector: 'app-home',
@@ -9,7 +13,9 @@
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
     })
-    export class HomeComponent {
+    export class HomeComponent implements OnInit {
+
+    private bookService = inject(BookService);
 
     soldPlace: string = '';
     delivery: string = '';
@@ -19,7 +25,24 @@
     otherBooks: string[] = [];
 
     searchValue: string = '';
-    books: any[] = [];
+    books: Book[] = [];
+
+    ngOnInit() {
+        this.bookService.getAll().subscribe({
+            next: (data) => {
+            console.log('DATA FRA API:', data);
+            console.log('ANTAL FRA API:', data.length);
+
+            this.books = data;
+
+            console.log('ANTAL I BOOKS:', this.books.length);
+            },
+
+            error: (error) => {
+            console.error('Fejl ved hentning af bøger:', error);
+            }
+        });
+        }
 
     updateOtherBooks() {
         this.otherBooks = Array(this.amount).fill('');

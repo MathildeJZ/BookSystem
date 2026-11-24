@@ -1,3 +1,4 @@
+
 using Application.Interfaces;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -5,21 +6,38 @@ using Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Controllers
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IBookRepository, BookRepository>();
 
-// Add Swagger (optional)
-builder.Services.AddEndpointsApiExplorer();
+// CORS: Tillad Angular på localhost:4200
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+// Dependency Injection
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+
+// Databaseforbindelse
 builder.Services.AddDbContext<BookDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));//hvordan ef core skal forbinde til databasen.
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    )
+);
 
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{}
+// Middleware
+app.UseCors("AllowAngular");
 
 app.UseHttpsRedirection();
 
@@ -28,3 +46,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

@@ -1,5 +1,28 @@
     <div class="box-container">
 
+<h1>HOME COMPONENT VIRKER!</h1>
+
+        <div class="box">
+            <h2>Mine bøger</h2>
+
+<p>Antal bøger hentet: {{ books.length }}</p>
+
+            <div *ngIf="books.length === 0">           
+            Ingen bøger fundet.
+            </div>
+
+            <div *ngFor="let book of books" class="book-item"> 
+                <h3>{{ book.title }}</h3>
+
+                <p>Forfatter: {{ book.author }}</p>
+                <p>Forlag: {{ book.publisher }}</p>
+                <p>Pris: {{ book.price }} kr.</p>
+                <p>Udgivelsesår: {{ book.year }}</p>
+                <p>Sidetal: {{ book.pages }}</p>
+            </div>
+
+        </div>
+
     <!-- Handlinger-boksen -->
     <div class="box">
         Handlinger
